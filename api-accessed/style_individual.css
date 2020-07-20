@@ -6,17 +6,41 @@ html, body {
 }
 
 #container1 {
-
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  top: 0;
+  bottom: 1; 
+  left: 0;
+  right: 1; 
 }
 
 #container2 {
-  
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  top: 0;
+  bottom: 1; 
+  left: 1;
+  right: 0;  
 }
 
 #container3 {
-  
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  top: 1;
+  bottom: 0; 
+  left: 0;
+  right: 1;  
 }
 
 #container4 {
-  
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  top: 1;
+  bottom: 0; 
+  left: 1;
+  right: 0;
 }
