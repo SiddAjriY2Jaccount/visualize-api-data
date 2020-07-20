@@ -67,58 +67,53 @@ anychart.onDocumentReady(function() {
     .then((resp) => resp.json())
     .then(function(data) {
 
-      //console.log(data);
-      
-      let final_data = {};
-      var arr1 = [];
-      arr1.push(data.channel.field1);
-      var arr2 = [];
-      arr2.push(data.channel.field2);
-      var arr3 = [];
-      arr3.push(data.channel.field3);
-      var arr4 = [];
-      arr4.push(data.channel.field4);
-      var header = [];
-      header.push("Sensor no.");
-      var rows = [];
+      //Draw each sensor's chart in inividual div tags
+      for (let j = 0; j < 4; j++) {
+        let final_data = {};
+  
+        var header = [];
+        header.push("Date");
+        header.push("Sensor Values");
+        
+        var rows = [];
 
-      for (let i = 0; i < data.feeds.length; i++) {
-        //console.log(data.feeds[0]);
-        //console.log(data.feeds[0]["entry_id"]);
-        header.push(data.feeds[i]["created_at"]);
-        arr1.push(data.feeds[i]["field1"]);
-        arr2.push(data.feeds[i]["field2"]);
-        arr3.push(data.feeds[i]["field3"]);
-        arr4.push(data.feeds[i]["field4"]); 
+        for (let i = 0; i < data.feeds.length; i++) {
+          //console.log(data.feeds[0]);
+          //console.log(data.feeds[0]["entry_id"]);
+          var arr = [];
+          var field_num = "field" + (j+1).toString();
+          arr.push(data.feeds[i]["created_at"]);
+          arr.push(data.feeds[i][field_num]);
+          rows.push(arr);
+ 
+        }
+
+        final_data["header"] = header;
+        final_data["rows"] = rows;
+
+        console.log(header);
+        console.log(rows);
+        console.log(final_data);
+
+        var chart = anychart.column();
+
+        // add data
+        chart.data(final_data);
+
+        // set the chart title
+        chart.title("Sensor" + (j+1).toString());
+
+        // draw
+        var container_name = "container" + (j+1).toString();  
+        console.log(container_name);
+        chart.container(container_name);
+        chart.draw();
+        
       }
 
-      rows.push(arr1);
-      rows.push(arr2);
-      rows.push(arr3);
-      rows.push(arr4);
-
-      final_data["header"] = header;
-      final_data["rows"] = rows;
-
-      console.log(header);
-      console.log(rows);
-      console.log(final_data);
-
-      var chart = anychart.column();
-
-      // add data
-      chart.data(final_data);
-
-      // set the chart title
-      chart.title("Visualize API data");
-
-      // draw
-      chart.container("container");
-      chart.draw();
-      
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
   
 });
